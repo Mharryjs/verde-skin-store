@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fafbf5;
+  --color-cream: #f2f5ea;
+  --color-mist: #e6eeda;
+  --color-moss: #c6d8b8;
+  --color-sage: #8fae8b;
+  --color-fern: #5d7d5f;
+  --color-forest: #2c4a35;
+  --color-pine: #15271d;
+  --color-gold: #c2a268;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-spin-slow: spin 24s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-pine);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-moss);
+  color: var(--color-pine);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sage);
+  border-radius: 999px;
+  border: 2px solid var(--color-cream);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-fern);
+}
+
+/* faint paper grain over the whole page */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* giant hollow display words */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(21, 39, 29, 0.16);
+}
+
+.text-outline-light {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(250, 251, 245, 0.22);
+}
+
+/* soft ring highlight used on glass chips */
+.glass {
+  background: rgba(250, 251, 245, 0.66);
+  border: 1px solid rgba(21, 39, 29, 0.09);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-dark {
+  background: rgba(21, 39, 29, 0.55);
+  border: 1px solid rgba(250, 251, 245, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* link underline that grows from the left */
+.link-line {
+  position: relative;
+}
+.link-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-line:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
